@@ -11,11 +11,27 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ ];
+          overlays = [
+            (final: prev: {
+              haskellPackages = prev.haskellPackages.override (old: {
+                overrides =
+                  final.lib.composeExtensions (old.overrides or (_: _: { }))
+                  (hfinal: hprev: {
+                    haskell-training = hfinal.callCabal2nix "haskell-training"
+                      (final.lib.cleanSource ./.) { };
+                  });
+              });
+            })
+          ];
           config.allowUnfree = true;
         };
       in {
-        devShells.default =
-          pkgs.mkShell { nativeBuildInputs = with pkgs; [ cabal-install ]; };
+        devShells.default = pkgs.haskellPackages.shellFor {
+          packages = p: [ p.haskell-training ];
+          nativeBuildInputs = with pkgs; [
+            cabal-install
+            haskell-language-server
+          ];
+        };
       });
 }
