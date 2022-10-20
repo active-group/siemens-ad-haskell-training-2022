@@ -14,6 +14,11 @@ library
     import:           warnings
     exposed-modules:  MyLib
     build-depends:    base
+                    , QuickCheck
+                    , containers
+                    , polysemy
+                    , polysemy-plugin
+                    , text
     hs-source-dirs:   src-lib
     default-language: Haskell2010
 
@@ -32,4 +37,10 @@ test-suite haskell-training-test
     hs-source-dirs:   test
     main-is:          Main.hs
     build-depends:    base
+                    , HUnit-approx
+                    , QuickCheck
+                    , generic-arbitrary
                     , haskell-training
+                    , hspec
+                    , quickcheck-instances
+                    , text
