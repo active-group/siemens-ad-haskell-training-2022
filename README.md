@@ -19,7 +19,7 @@ extensions first:
 Then choose one of the following methods, with the first being the
 simplest:
 
-### Starting `code` from withing a Nix environment
+### Starting `code` from within a Nix environment
 
 - Enter the Nix development environment via `nix develop`
 - Then execute `code .`
