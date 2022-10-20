@@ -9,8 +9,22 @@ instructions).
 
 ## VSCode
 
-There are (at least) two alternative possibilities to get LSP
-integration for Haskell working seamlessly:
+There are (at least) three alternative possibilities to get LSP
+integration for Haskell working seamlessly.  Install the following
+extensions first:
+
+- `haskell.haskell`
+- `bbenoist.nix`
+
+Then choose one of the following methods, with the first being the
+simplest:
+
+### Starting `code` from withing a Nix environment
+
+- Enter the Nix development environment via `nix develop`
+- Then execute `code .`
+- Open the `MyLib.hs` file and change something; after a while, you
+  should see some LSP feedback
 
 ### `direnv`
 
