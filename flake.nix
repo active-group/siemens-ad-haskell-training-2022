@@ -8,6 +8,10 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    polysemySrc = {
+      url = "github:polysemy-research/polysemy";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, ... }:
@@ -23,6 +27,11 @@
                   (hfinal: hprev: {
                     haskell-training = hfinal.callCabal2nix "haskell-training"
                       (final.lib.cleanSource ./.) { };
+                    # Use the newest version of polysemy.
+                    polysemy = hfinal.callCabal2nix "polysemy"
+                      self.inputs.polysemySrc { };
+                    polysemy-plugin = hfinal.callCabal2nix "polysemy"
+                      (self.inputs.polysemySrc + /polysemy-plugin) { };
                   });
               });
             })

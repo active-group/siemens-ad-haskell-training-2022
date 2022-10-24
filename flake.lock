@@ -47,11 +47,28 @@
         "type": "github"
       }
     },
+    "polysemySrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1665954720,
+        "narHash": "sha256-sJ62iLgqJhhoBtGzDH6Ntjfa9ri+rWTtiiCyPPFTQIw=",
+        "owner": "polysemy-research",
+        "repo": "polysemy",
+        "rev": "1b6ae7b18b9138a2a1efffca80aafdfe98c4acff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "polysemy-research",
+        "repo": "polysemy",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "polysemySrc": "polysemySrc"
       }
     }
   },
