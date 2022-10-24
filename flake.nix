@@ -38,6 +38,26 @@
           ];
           config.allowUnfree = true;
         };
+        demo-port = "8999";
+        demo-put =
+          pkgs.writeShellScriptBin "demo-put" ''
+            if [ ''${#} -ne 2 ]; then
+              echo "demo-put <aspect-name> <ribbon-id>"
+            else
+              curl -i -X PUT -d "\"''${2}\"" \
+                   -H "Content-Type: application/json" \
+                   localhost:${demo-port}/''${1}/color-ribbon
+            fi
+          '';
+        demo-del =
+          pkgs.writeShellScriptBin "demo-del" ''
+            if [ ''${#} -ne 1 ]; then
+              echo "demo-del <aspect-name>"
+            else
+              curl -i -X DELETE \
+                   localhost:${demo-port}/''${1}/color-ribbon
+            fi
+          '';
       in {
         devShells.default = pkgs.haskellPackages.shellFor {
           packages = p: [ p.haskell-training ];
@@ -45,6 +65,9 @@
             cabal-install
             haskell-language-server
             haskellPackages.fourmolu
+            curl
+            demo-put
+            demo-del
           ];
         };
       });
