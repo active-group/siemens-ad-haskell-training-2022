@@ -23,13 +23,14 @@ newtype API a = API {unAPI :: a}
   deriving stock (Eq, Show)
 
 type Routes =
-  Capture "name" (API AspectName)
-    :> "color-ribbon"
-    :> ( Get '[JSON] (API ColorRibbonId)
-          :<|> DeleteNoContent
-          :<|> ReqBody '[JSON] (API ColorRibbonId)
-          :> UVerb 'PUT '[JSON] '[WithStatus 201 NoContent, WithStatus 204 NoContent]
-       )
+  Get '[JSON] [API AspectName]
+    :<|> Capture "name" (API AspectName)
+      :> "color-ribbon"
+      :> ( Get '[JSON] (API ColorRibbonId)
+            :<|> DeleteNoContent
+            :<|> ReqBody '[JSON] (API ColorRibbonId)
+              :> UVerb 'PUT '[JSON] '[WithStatus 201 NoContent, WithStatus 204 NoContent]
+         )
 
 fromText :: IsString a => Semigroup a => a -> (Text -> b) -> Text -> Either a b
 fromText name constr input

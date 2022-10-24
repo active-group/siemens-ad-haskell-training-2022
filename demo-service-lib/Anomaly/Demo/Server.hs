@@ -45,11 +45,12 @@ server ::
     r =>
   ServerT Routes (Sem r)
 server =
-  \a ->
-    let aspect = unAPI a
-     in API <$> Store.lookupColorRibbonOrError aspect
-          :<|> deleteNoContent aspect
-          :<|> putNoContent aspect . unAPI
+  fmap API <$> Store.selectAllAspects
+  :<|> \a ->
+      let aspect = unAPI a
+       in API <$> Store.lookupColorRibbonOrError aspect
+            :<|> deleteNoContent aspect
+            :<|> putNoContent aspect . unAPI
   where
     deleteNoContent aspect = do
       Store.deleteColorRibbon aspect

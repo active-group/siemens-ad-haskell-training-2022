@@ -10,6 +10,7 @@ module Anomaly.Demo.Store (
   lookupColorRibbonOrError,
   deleteColorRibbon,
   insertOrUpdateColorRibbon,
+  selectAllAspects,
   runStorePure,
   runStoreAsSqlite,
 ) where
@@ -30,6 +31,8 @@ data ColorRibbonStore r a where
   DeleteColorRibbon :: AspectName -> ColorRibbonStore r ()
   -- | Create a new association, or overwrite an existing ones.
   InsertOrUpdateColorRibbon :: AspectName -> ColorRibbonId -> ColorRibbonStore r UpdateResponse
+  -- | Return a list of known aspects.
+  SelectAllAspects :: ColorRibbonStore r [AspectName]
 
 -- | Try looking up a 'ColorRibbonId' corresponding to a given aspect.
 lookupColorRibbon ::
@@ -53,6 +56,12 @@ insertOrUpdateColorRibbon ::
   Sem r UpdateResponse
 insertOrUpdateColorRibbon aspect ribbon = send (InsertOrUpdateColorRibbon aspect ribbon)
 
+-- | Select all known 'AspectName's.
+selectAllAspects ::
+  Member ColorRibbonStore r =>
+  Sem r [AspectName]
+selectAllAspects = send SelectAllAspects
+
 lookupColorRibbonOrError ::
   Members '[ColorRibbonStore, Polysemy.Error LookupError] r =>
   AspectName ->
@@ -74,6 +83,7 @@ runStoreAsState = reinterpret $ \case
           (maybePrevious, updatedStore) <- Polysemy.gets insertLookup
           Polysemy.modify $ const updatedStore
           pure $ maybe ACRLinkCreated (const ACRLinkUpdated) maybePrevious
+  SelectAllAspects -> Polysemy.gets Map.keys
 
 runStorePure ::
   Map AspectName ColorRibbonId ->
@@ -90,3 +100,4 @@ runStoreAsSqlite conn = Polysemy.interpret $ \case
   LookupColorRibbon aspect -> Polysemy.embed $ DB.selectRibbon conn aspect
   DeleteColorRibbon aspect -> Polysemy.embed $ DB.deleteRibbon conn aspect
   InsertOrUpdateColorRibbon aspect ribbon -> Polysemy.embed $ DB.insertOrUpdateRibbon conn aspect ribbon
+  SelectAllAspects -> Polysemy.embed $ DB.selectAllAspect conn

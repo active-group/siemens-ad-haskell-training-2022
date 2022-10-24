@@ -10,6 +10,7 @@ module Anomaly.Demo.SqliteDB (
   selectRibbon,
   insertOrUpdateRibbon,
   deleteRibbon,
+  selectAllAspect,
   createDbTable,
   setupDbTable,
   tableName,
@@ -86,3 +87,9 @@ deleteRibbon :: Sqlite.Connection -> AspectName -> IO ()
 deleteRibbon conn aspect =
   let sqlstmt = "delete from " <> tableName <> " where aspect = ?"
    in Sqlite.execute conn sqlstmt (Sqlite.Only (DB aspect))
+
+-- | Select all 'AspectName's found in the database.
+selectAllAspect :: Sqlite.Connection -> IO [AspectName]
+selectAllAspect conn =
+  let sqlstm = "select aspect from " <> tableName
+   in fmap (unDB . Sqlite.fromOnly) <$> Sqlite.query_ conn sqlstm
