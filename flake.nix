@@ -35,6 +35,7 @@
           nativeBuildInputs = with pkgs; [
             cabal-install
             haskell-language-server
+            haskellPackages.fourmolu
           ];
         };
       });
