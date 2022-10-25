@@ -525,6 +525,8 @@ data Optional a =
   | Result a
   deriving Show -- <-- generates an instance of Show (Optional a) automatically
 
+-- data Maybe a = Nothing | Just a
+
 -- Eq a: constraint on a, before =>
 -- not any a, but one that supports comparison
 {-
