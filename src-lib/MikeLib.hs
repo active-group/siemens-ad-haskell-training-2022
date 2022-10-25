@@ -23,4 +23,6 @@ f n = n * 2
 
 -- new data type
 data Pet = Cat | Dog | Spider
-deriving Show
+  deriving Show -- indentation-sensitive!
+
+
