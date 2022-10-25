@@ -287,4 +287,7 @@ flowsFrom place (Confluence location mainStem tributary) =
 -- A shower product is one the following:
 -- - soap (color)
 -- - shampoo (hair type)
--- - mixture of two shower product
+-- - 50/50 mixture of two shower products
+
+-- - write a data type for shower products
+-- - write a function that calculates the proportion of soap
