@@ -146,7 +146,7 @@ msmToTime minutes =
 -- - each case is compound data / has multiple attributes
 
 data Thickness = MkThickness Integer
-  deriving
+  deriving Show
 data Length = MkLength Integer
   deriving Show
 
