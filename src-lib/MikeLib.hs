@@ -396,6 +396,12 @@ listProduct (first:rest) =
 -- "right fold": right-to-left
 -- "universal list function"
 listFold :: b -> (a -> b -> b) -> [a] -> b
+-- >>> listFold 0 (+) [1,2,3,4,5,6]
+-- 21
+-- >>> listFold 1 (*) [1,2,3,4,5,6]
+-- 720
+-- >>> listFold [] (:) [1,2,3,4,5,6]
+-- [1,2,3,4,5,6]
 listFold e _op [] = e
 listFold e op (first:rest) =
     op first (listFold e op rest)
@@ -418,9 +424,18 @@ incList (first:rest) =
     (inc first) : (incList rest)
 
 inc :: Integer -> Integer
-inc n = n + 1
+-- inc n = n + 1
+-- is an abbreviation for:
+inc = (\n -> n + 1)
 
 listMap :: (a -> b) -> [a] -> [b]
+-- >>> listMap inc [1,2,3,4,5]
+-- [2,3,4,5,6]
+
+-- (\ n -> n + 1) -- lambda expression -> function
+
+-- >>> listMap (\ n -> n + 1) [1,2,3,4,5]
+-- [2,3,4,5,6]
 listMap _f [] = []
 listMap f (first : rest) =
   (f first) : (listMap f rest)
