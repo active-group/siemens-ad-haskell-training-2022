@@ -426,6 +426,7 @@ extractOdds (first:rest) =
 
 -- a: type variable (lower case)
 -- each call can use a different type for a
+-- higher-order function: accepts function as an argument
 extract :: (a -> Bool) -> [a] -> [a]
 -- >>> extract isEven [1,2,3,4,5,6,7]
 -- [2,4,6]
