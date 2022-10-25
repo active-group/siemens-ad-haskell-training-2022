@@ -80,4 +80,4 @@ timeMinutesSinceMidnight :: Time -> Integer
 timeMinutesSinceMidnight time =
 -- template: derivies from the type signature / datatype definitions
 --    timeHours time      timeMinutes time
-  (timeHours time) * 60 + (timeMinutes times)
+  (timeHours time) * 60 + (timeMinutes time)
