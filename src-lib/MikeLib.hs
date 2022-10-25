@@ -268,3 +268,9 @@ schlichem = Creek "Tieringen"
 
 neckar2 :: River
 neckar2 = Confluence "Epfendorf" neckar1 schlichem
+
+-- Does water flow from a place into a river?
+flowsFrom :: Place -> River -> Bool
+flowsFrom place (Creek origin) = place == origin
+flowsFrom place (Confluence location mainStem tributary) =
+     place == location
