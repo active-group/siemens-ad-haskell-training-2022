@@ -313,4 +313,21 @@ soapProportion (Mixture product1 product2) =
     (soapProportion product1) * 0.5
     + (soapProportion product2) * 0.5
 
+-- A list is one the following:
+-- - the empty list
+-- - a cons list, consisting of the first element and the rest list
+--                                                             ^^^^
 
+data ListOfIntegers =
+    Empty
+  | Cons Integer ListOfIntegers
+  deriving Show
+
+-- 1-element list: 5
+list1 = Cons 5 Empty
+-- 2-element list: 2 5
+list2 = Cons 2 (Cons 5 Empty)
+-- 3-element list: 4 2 5
+list3 = Cons 4 (Cons 2 (Cons 5 Empty))
+-- 4-element list: 7 4 2 5
+list4 = Cons 7 list3
