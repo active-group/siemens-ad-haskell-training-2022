@@ -360,3 +360,4 @@ listSum (Cons first rest) =
 -- - cons: : (infix)
 
 list1 = 5 : []
+list2 = 2 : (5 : [])
