@@ -145,9 +145,13 @@ msmToTime minutes =
 -- - multiple cases
 -- - each case is compound data / has multiple attributes
 
+type Thickness = Integer
+type Length = Integer
+
 data Animal =
     MkDillo { dilloLiveness :: Liveness, dilloWeight :: Weight}
   | MkParrot String Weight
+  | MkSnake Thickness Length -- no Weight attribute!
   deriving Show
 
 
@@ -163,6 +167,10 @@ parrot1 = MkParrot "Hello!" 1
 parrot2 :: Animal
 parrot2 = MkParrot "Goodbye!" 2
 
+-- Snake, 10cm thick, 200cm long
+snake1 :: Animal
+snake1 = MkSnake 10 200
+
 -- run over a animal
 runOverAnimal :: Animal -> Animal
 -- >>> runOverAnimal dillo1
@@ -173,6 +181,8 @@ runOverAnimal :: Animal -> Animal
 -- "_": don't care
 runOverAnimal (MkDillo _ weight) = MkDillo Dead weight
 runOverAnimal (MkParrot _ weight) = MkParrot "" weight
+runOverAnimal (MkSnake _thickness length) =
+    MkSnake 0 length
 
 -- feed animal
 -- >>> (feedAnimal dillo1) 5
