@@ -24,7 +24,7 @@ f n = n * 2
 -- new data type
 -- 3 cases
 data Pet = Cat | Dog | Spider
-  deriving Show -- indentation-sensitive!
+  deriving (Show) -- indentation-sensitive!
 
 instance Eq Pet where
     (==) = eqPet
@@ -66,7 +66,7 @@ isCute Spider = False
 -- - weight
 
 data Liveness = Alive | Dead
-  deriving Show
+  deriving (Show, Eq)
 
 -- type synonym
 type Weight = Integer
@@ -523,7 +523,7 @@ extract p (first : rest) =
 data Optional a =
     Null
   | Result a
-  deriving Show
+  deriving Show -- <-- generates an instance of Show (Optional a) automatically
 
 -- Eq a: constraint on a, before =>
 -- not any a, but one that supports comparison
