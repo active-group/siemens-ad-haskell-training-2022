@@ -359,5 +359,12 @@ listSum (Cons first rest) =
 -- - empty list: []
 -- - cons: : (infix)
 
+list1 :: [Integer]
 list1 = 5 : []
+list2 :: [Integer]
 list2 = 2 : (5 : [])
+-- abbreviation:
+list2' :: [Integer]
+list2' = [2,5]
+list3 = [4, 2, 5]
+list4 = 7 : list3
