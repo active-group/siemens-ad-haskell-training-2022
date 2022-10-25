@@ -256,4 +256,9 @@ data River =
 eschach :: River
 eschach = Creek "Heimliswald"
 
+prim :: River
 prim = Creek "Dreifaltigkeitsberg"
+
+neckar1 :: River
+neckar1 = Confluence "Rottweil" eschach prim
+
