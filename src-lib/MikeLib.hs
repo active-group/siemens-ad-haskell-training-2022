@@ -26,6 +26,16 @@ f n = n * 2
 data Pet = Cat | Dog | Spider
   deriving Show -- indentation-sensitive!
 
+instance Eq Pet where
+    (==) = eqPet
+
+eqPet :: Pet -> Pet -> Bool
+eqPet Cat Cat = True
+eqPet Dog Dog = True
+eqPet Spider Spider = True
+eqPet _ _ = False
+
+
 -- intuition: capitalized words are for "constants"
 -- lower case: variables
 
