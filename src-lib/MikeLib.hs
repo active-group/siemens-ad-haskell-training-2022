@@ -217,13 +217,13 @@ feedAnimal (MkSnake (Thickness t) length) amount =
 -- examples for snakes and calling runOverAnimal, feedAnimal
 
 feedAnimal' :: (Animal, Weight) -> Animal
--- >>> feedAnimal'(dillo1, 5)
+-- >>> feedAnimal' (dillo1, 5)
 -- MkDillo {dilloLiveness = Alive, dilloWeight = 15}
-feedAnimal'(MkDillo liveness weight, amount) =
+feedAnimal' (MkDillo liveness weight, amount) =
     case liveness of
         Alive -> MkDillo liveness (weight+amount)
         Dead -> MkDillo liveness weight
-feedAnimal'(MkParrot sentence weight, amount) =
+feedAnimal' (MkParrot sentence weight, amount) =
     MkParrot sentence (weight+amount)
-feedAnimal'(MkSnake (Thickness t) length, amount) =
+feedAnimal' (MkSnake (Thickness t) length, amount) =
     MkSnake (Thickness (t + div amount 2)) length
