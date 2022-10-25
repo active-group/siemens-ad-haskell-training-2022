@@ -227,6 +227,10 @@ swap :: (a -> b -> c) -> (b -> (a -> c))
 swap f =
   \ b -> \ a -> f a b
 
+tuplify :: (a -> b -> c) -> ((a, b) -> c)
+tuplify f =
+    \ (a, b) -> f a b
+
 -- built-in under flip
 
 feedAnimal2 :: Weight -> Animal -> Animal
