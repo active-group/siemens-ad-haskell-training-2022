@@ -318,12 +318,22 @@ soapProportion (Mixture product1 product2) =
 -- - a cons list, consisting of the first element and the rest list
 --                                                             ^^^^
 
+{-
 data ListOfIntegers =
     Empty
   | Cons Integer ListOfIntegers
   deriving Show
+-}
+
+-- abstract:
+data ListOf element -- ListOf is a type *constructor*
+  = Empty
+  | Cons Integer (ListOf element)
+  deriving (Show)
+
 
 -- 1-element list: 5
+list1 :: ListOf element
 list1 = Cons 5 Empty
 -- 2-element list: 2 5
 list2 = Cons 2 (Cons 5 Empty)
@@ -333,7 +343,9 @@ list3 = Cons 4 (Cons 2 (Cons 5 Empty))
 list4 = Cons 7 list3
 
 -- add the elements of a list
-listSum :: ListOfIntegers -> Integer
+-- listSum :: ListOfIntegers -> Integer
+-- >>> listSum list4
+-- 18
 listSum Empty = 0
 listSum (Cons first rest) =
     first + listSum rest
