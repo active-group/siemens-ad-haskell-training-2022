@@ -409,7 +409,7 @@ inc :: Integer -> Integer
 inc n = n + 1
 
 listMap :: (a -> b) -> [a] -> [b]
-listMap f [] = []
+listMap _f [] = []
 listMap f (first : rest) =
   (f first) : (listMap f rest)
 
