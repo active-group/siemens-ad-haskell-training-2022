@@ -265,4 +265,5 @@ neckar1 = Confluence "Rottweil" eschach prim
 schlichem :: River
 schlichem = Creek "Tieringen"
 
-neckar2 = Confluence ""
+neckar2 :: River
+neckar2 = Confluence "Epfendorf" neckar1 schlichem
