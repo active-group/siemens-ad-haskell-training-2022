@@ -215,3 +215,13 @@ feedAnimal (MkSnake (Thickness t) length) amount =
 -- add another sort of animal: snakes, defined by thickness and length
 -- also extend runOverAnimal, feedAnimal
 -- examples for snakes and calling runOverAnimal, feedAnimal
+
+feedAnimal' :: (Animal, Weight) -> Animal
+feedAnimal'(MkDillo liveness weight, amount) =
+    case liveness of
+        Alive -> MkDillo liveness (weight+amount)
+        Dead -> MkDillo liveness weight
+feedAnimal'(MkParrot sentence weight, amount) =
+    MkParrot sentence (weight+amount)
+feedAnimal'(MkSnake (Thickness t) length, amount) =
+    MkSnake (Thickness (t + div amount 2)) length
