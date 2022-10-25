@@ -141,8 +141,43 @@ msmToTime minutes =
 -- - sentence
 -- - weight
 
+-- algebraic data type
+-- - multiple cases
+-- - each case is compound data / has multiple attributes
+
 data Animal =
     MkDillo { dilloLiveness :: Liveness, dilloWeight :: Weight}
   | MkParrot String Weight
   deriving Show
 
+
+dillo1 :: Animal
+dillo1 = MkDillo { dilloLiveness = Alive, dilloWeight = 10}
+
+dillo2 :: Animal
+dillo2 = MkDillo Dead 8
+
+parrot1 :: Animal
+parrot1 = MkParrot "Hello!" 1
+
+parrot2 :: Animal
+parrot2 = MkParrot "Goodbye!" 2
+
+-- run over a animal
+runOverAnimal :: Animal -> Animal
+-- >>> runOverAnimal dillo1
+-- MkDillo {dilloLiveness = Dead, dilloWeight = 10}
+-- >>> runOverAnimal parrot1
+-- MkParrot "" 1
+
+-- "_": don't care
+runOverAnimal (MkDillo _ weight) = MkDillo Dead weight
+runOverAnimal (MkParrot _ weight) = MkParrot "" weight
+
+-- feed animal
+feedAnimal (MkDillo liveness weight) amount =
+    case liveness of
+        Alive -> MkDillo liveness (weight + amount)
+        Dead -> MkDillo liveness weight
+feedAnimal (MkParrot sentence weight) amount =
+    MkParrot sentence (weight + amount)
