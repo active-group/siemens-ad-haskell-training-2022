@@ -251,6 +251,7 @@ type Place = String
 data River =
     Creek Place
   | Confluence Place River River
+  --                 ^^^^^ self-reference
   deriving Show
 
 eschach :: River
