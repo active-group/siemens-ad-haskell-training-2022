@@ -403,7 +403,10 @@ incList :: [Integer] -> [Integer]
 -- [2,3,4,5,6]
 incList [] = []
 incList (first:rest) =
-    (first + 1) : (incList rest)
+    (inc first) : (incList rest)
+
+inc :: Integer -> Integer
+inc n = n + 1
 
 -- is a number even?
 isEven :: Integer -> Bool
