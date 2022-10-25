@@ -227,6 +227,9 @@ swap :: (a -> b -> c) -> (b -> (a -> c))
 swap f =
   \ b -> \ a -> f a b
 
+feedAnimal2 :: Weight -> Animal -> Animal
+feedAnimal2 = swap feedAnimal
+
 -- Exercise:
 -- add another sort of animal: snakes, defined by thickness and length
 -- also extend runOverAnimal, feedAnimal
