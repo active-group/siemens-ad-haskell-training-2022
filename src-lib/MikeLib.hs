@@ -328,22 +328,25 @@ data ListOfIntegers =
 -- abstract:
 data ListOf element -- ListOf is a type *constructor*
   = Empty
-  | Cons Integer (ListOf element)
+  | Cons element (ListOf element)
   deriving (Show)
 
 
 -- 1-element list: 5
-list1 :: ListOf element
+list1 :: ListOf Integer
 list1 = Cons 5 Empty
 -- 2-element list: 2 5
+list2 :: ListOf Integer
 list2 = Cons 2 (Cons 5 Empty)
 -- 3-element list: 4 2 5
+list3 :: ListOf Integer
 list3 = Cons 4 (Cons 2 (Cons 5 Empty))
 -- 4-element list: 7 4 2 5
+list4 :: ListOf Integer
 list4 = Cons 7 list3
 
 -- add the elements of a list
--- listSum :: ListOfIntegers -> Integer
+listSum :: ListOf Integer -> Integer
 -- >>> listSum list4
 -- 18
 listSum Empty = 0
