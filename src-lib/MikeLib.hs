@@ -74,3 +74,8 @@ data Time = MkTime { timeHours :: Integer, timeMinute :: Integer }
 time1 :: Time
 -- 11:10AM
 time1 = MkTime 11 10
+
+-- How many minutes since midnight?
+timeMinutesSinceMidnight :: Time -> Integer
+timeMinutesSinceMidnight time =
+    timeHours time      timeM
