@@ -77,6 +77,8 @@ time1 = MkTime 11 10
 
 -- How many minutes since midnight?
 timeMinutesSinceMidnight :: Time -> Integer
+-- >>> timeMinutesSinceMidnight time1
+-- 670
 timeMinutesSinceMidnight time =
 -- template: derivies from the type signature / datatype definitions
 --    timeHours time      timeMinutes time
