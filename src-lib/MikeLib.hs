@@ -175,8 +175,9 @@ runOverAnimal (MkDillo _ weight) = MkDillo Dead weight
 runOverAnimal (MkParrot _ weight) = MkParrot "" weight
 
 -- feed animal
--- >>> feedAnimal dillo1 5
+-- >>> (feedAnimal dillo1) 5
 -- MkDillo {dilloLiveness = Alive, dilloWeight = 15}
+
 -- >>> feedAnimal dillo2 5
 -- MkDillo {dilloLiveness = Dead, dilloWeight = 8}
 
