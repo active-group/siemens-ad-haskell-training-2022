@@ -557,11 +557,19 @@ listIndex x (first:rest) =
         Result index -> Result (index+1)
 -}
 
+{-
+class Functor f where
+  fmap ::      (a -> b) -> f      a -> f          b
+-}
+
 -- listMap ::  (a -> b) -> ListOf a   -> ListOf   b
 
 optionalMap :: (a -> b) -> Optional a -> Optional b
 optionalMap f Null = Null
 optionalMap f (Result a) = Result (f a)
+
+instance Functor Optional where
+    fmap = optionalMap
 
 -- built-in type classes:
 -- Show, Eq, Ord (ordered), Num
