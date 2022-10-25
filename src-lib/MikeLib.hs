@@ -56,6 +56,8 @@ type Weight = Integer
 data Dillo = MkDillo { dilloLiveness :: Liveness, dilloWeight :: Weight }
   deriving Show
 
+-- dilloLiveness: selector function
+
 -- live armadillo, 10kg
 dillo1 :: Dillo
 dillo1 = MkDillo { dilloLiveness = Alive, dilloWeight = 10 }
