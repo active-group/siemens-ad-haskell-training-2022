@@ -91,6 +91,8 @@ timeMinutesSinceMidnight time =
 
 -- make time object from minutes since midnight
 msmToTime :: Integer -> Time
+-- >>> msmToTime 670
+-- MkTime {timeHours = 11, timeMinutes = 10}
 msmToTime minutes =
     -- template: compound data / record as output
     -- call the constructor
