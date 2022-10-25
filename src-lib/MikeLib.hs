@@ -550,10 +550,14 @@ listIndex _x [] = Null
 listIndex x (first:rest) =
     if first == x 
     then Result 0
-    else
+    else optionalMap inc (listIndex x rest)
+{-
        case listIndex x rest of
         Null -> Null
         Result index -> Result (index+1)
+-}
+
+-- listMap ::  (a -> b) -> ListOf a   -> ListOf   b
 
 optionalMap :: (a -> b) -> Optional a -> Optional b
 optionalMap f Null = Null
