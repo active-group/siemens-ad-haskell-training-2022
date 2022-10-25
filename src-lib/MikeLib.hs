@@ -95,4 +95,4 @@ msmToTime minutes =
     -- template: compound data / record as output
     -- call the constructor
 --    MkTime { timeHours = undefined, timeMinutes = undefined }
-    MkTime {timeHours = undefined, timeMinutes = undefined}
+    MkTime {timeHours = div minutes 60, timeMinutes = undefined}
