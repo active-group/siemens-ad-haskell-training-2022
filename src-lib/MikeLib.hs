@@ -77,6 +77,7 @@ runOverDillo :: Dillo -> Dillo
 -- MkDillo {dilloLiveness = Dead, dilloWeight = 10}
 -- >>> runOverDillo dillo2
 -- MkDillo {dilloLiveness = Dead, dilloWeight = 8}
+{-
 runOverDillo dillo =
     -- template for compound data as input
     -- dilloLiveness dillo ... dilloWeight dillo
@@ -84,6 +85,15 @@ runOverDillo dillo =
     -- template for compound data as output
     -- MkDillo { dilloLiveness = ..., dilloWeight = ... }
     MkDillo {dilloLiveness = Dead, dilloWeight = dilloWeight dillo}
+-}
+-- other ways of writing same function:
+-- runOverDillo dillo = MkDillo Dead (dilloWeight dillo)
+-- pattern matching
+-- runOverDillo (MkDillo { dilloLiveness = _liveness, dilloWeight = w }) =
+--     MkDillo { dilloLiveness = Dead, dilloWeight = w }
+-- runOverDillo (MkDillo _liveness w) = MkDillo Dead w
+-- functional update, make a copy with some attributes different
+runOverDillo dillo = dillo { dilloLiveness = Dead }
 
 -- Wallclock time:
 data Time = MkTime { timeHours :: Integer, timeMinutes :: Integer }
