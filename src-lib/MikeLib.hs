@@ -412,8 +412,8 @@ isOdd n = mod n 2 == 1
 -- from a list of integers
 extractOdds :: [Integer] -> [Integer]
 -- >>> extractOdds [1,2,3,4,5,6,7]
--- [1,3,5, 7]
-extractOdds [] = undefined
+-- Prelude.undefined
+extractOdds [] = []]
 extractOdds (first:rest) =
     if isOdd first
     then first : (extractOdds rest)
