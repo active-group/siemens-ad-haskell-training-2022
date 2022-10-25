@@ -557,3 +557,12 @@ listIndex x (first:rest) =
 
 -- built-in type classes:
 -- Show, Eq, Ord (ordered), Num
+
+
+f' :: Num a => a -> a
+-- >>> f' 5.0
+-- 6.0
+-- >>> f' 5
+-- 6
+
+f' n = n + 1
