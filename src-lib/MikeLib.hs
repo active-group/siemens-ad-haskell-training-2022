@@ -189,3 +189,6 @@ feedAnimal (MkDillo liveness weight) amount =
         Dead -> MkDillo liveness weight
 feedAnimal (MkParrot sentence weight) amount =
     MkParrot sentence (weight + amount)
+
+-- Exercise:
+-- add another sort of animal: snakes, defined by thickness and length
