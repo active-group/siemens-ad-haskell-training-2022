@@ -70,6 +70,21 @@ dillo1 = MkDillo { dilloLiveness = Alive, dilloWeight = 10 }
 dillo2 :: Dillo
 dillo2 = MkDillo Dead 8
 
+-- Dillo: state of the armadillo *at a certain time*
+
+runOverDillo :: Dillo -> Dillo
+-- >>> runOverDillo dillo1
+-- MkDillo {dilloLiveness = Dead, dilloWeight = 10}
+-- >>> runOverDillo dillo2
+-- MkDillo {dilloLiveness = Dead, dilloWeight = 8}
+runOverDillo dillo =
+    -- template for compound data as input
+    -- dilloLiveness dillo ... dilloWeight dillo
+
+    -- template for compound data as output
+    -- MkDillo { dilloLiveness = ..., dilloWeight = ... }
+    MkDillo {dilloLiveness = Dead, dilloWeight = dilloWeight dillo}
+
 -- Wallclock time:
 data Time = MkTime { timeHours :: Integer, timeMinutes :: Integer }
   deriving Show
