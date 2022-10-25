@@ -207,6 +207,9 @@ feedAnimal (MkDillo liveness weight) amount =
         Dead -> MkDillo liveness weight
 feedAnimal (MkParrot sentence weight) amount =
     MkParrot sentence (weight + amount)
+feedAnimal (MkSnake (Thickness t) length) amount =
+    MkSnake (Thickness (t + div amount 2)) length
+
 
 -- Exercise:
 -- add another sort of animal: snakes, defined by thickness and length
