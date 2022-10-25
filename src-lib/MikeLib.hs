@@ -513,14 +513,17 @@ extract p (first : rest) =
 data Optional a =
     Null
   | Result a
+  deriving Show
 
--- Eq a: constraint on a
+-- Eq a: constraint on a, before =>
 -- not any a, but one that supports comparison
+
+-- Eq specifically "type class", think "interface"
 
 -- find the index of an element in a list
 listIndex :: Eq a => a -> [a] -> Optional Integer
 -- >>> listIndex 8 [5, 7, 8, 2, 9]
--- 2
+-- Result 2
 listIndex _x [] = Null
 listIndex x (first:rest) =
     if first == x 
