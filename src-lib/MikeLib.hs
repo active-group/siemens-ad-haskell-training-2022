@@ -45,6 +45,10 @@ isCute Spider = False
 
 -- Animals on the Texas highway
 
+-- An animal:
+-- - armadillo
+-- - parrot
+
 -- Armadillo has the following properties:
 -- - alive - OR - dead? - AND -
 -- - weight
