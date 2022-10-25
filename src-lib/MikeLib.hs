@@ -408,6 +408,12 @@ incList (first:rest) =
 inc :: Integer -> Integer
 inc n = n + 1
 
+listMap :: (a -> b) -> [a] -> [b]
+listMap f [] = []
+listMap f (first : rest) =
+  (f first) : (listMap f rest)
+
+
 -- is a number even?
 isEven :: Integer -> Bool
 -- >>> isEven 4
