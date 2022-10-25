@@ -554,3 +554,6 @@ listIndex x (first:rest) =
        case listIndex x rest of
         Null -> Null
         Result index -> Result (index+1)
+
+-- built-in type classes:
+-- Show, Eq, 
