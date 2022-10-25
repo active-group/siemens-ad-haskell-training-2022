@@ -199,6 +199,12 @@ runOverAnimal (MkSnake _thickness length) =
 -- >>> feedAnimal dillo2 5
 -- MkDillo {dilloLiveness = Dead, dilloWeight = 8}
 
+-- >>> feedAnimal parrot1 1
+-- MkParrot "Hello!" 2
+
+-- >>> feedAnimal parrot2 5
+-- MkParrot "Goodbye!" 2
+
 -- Haskell: function always has one input, one output
 feedAnimal :: Animal -> (Weight -> Animal)
 feedAnimal (MkDillo liveness weight) amount =
