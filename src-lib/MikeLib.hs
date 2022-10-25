@@ -325,6 +325,7 @@ data ListOfIntegers =
   deriving Show
 -}
 
+{-
 -- abstract:
 data ListOf element -- ListOf is a type *constructor*
   = Empty
@@ -352,3 +353,10 @@ listSum :: ListOf Integer -> Integer
 listSum Empty = 0
 listSum (Cons first rest) =
     first + listSum rest
+-}
+
+-- Built-in lists:
+-- - empty list: []
+-- - cons: : (infix)
+
+list1 = 5 : []
