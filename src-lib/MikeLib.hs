@@ -227,6 +227,8 @@ swap :: (a -> b -> c) -> (b -> (a -> c))
 swap f =
   \ b -> \ a -> f a b
 
+-- built-in under flip
+
 feedAnimal2 :: Weight -> Animal -> Animal
 feedAnimal2 = swap feedAnimal
 
