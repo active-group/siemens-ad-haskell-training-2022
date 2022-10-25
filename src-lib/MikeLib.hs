@@ -206,7 +206,10 @@ feedAnimal (MkDillo liveness weight) amount =
         Alive -> MkDillo liveness (weight + amount)
         Dead -> MkDillo liveness weight
 feedAnimal (MkParrot sentence weight) amount =
-    MkParrot sentence (weight + amount)
+-- parrots can not be >2kg
+    if weight + amount > 2
+    then MkParrot sentence weight
+    else MkParrot sentence (weight + amount)
 feedAnimal (MkSnake (Thickness t) length) amount =
     MkSnake (Thickness (t + div amount 2)) length
 
@@ -398,6 +401,6 @@ isEven n = mod n 2 == 0
 
 -- Exercise: write a function that extracts all even elements
 -- from a list of integers
-extractEvens :: [Integer] -> [Integer]
+-- extractEvens :: [Integer] -> [Integer]
 -- >>> extractEvens [1,2,3,4,5,6,7]
 -- [2,4,6]
