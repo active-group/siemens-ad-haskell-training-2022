@@ -59,3 +59,6 @@ data Dillo = MkDillo { dilloLiveness :: Liveness, dilloWeight :: Weight }
 -- live armadillo, 10kg
 dillo1 :: Dillo
 dillo1 = MkDillo { dilloLiveness = Alive, dilloWeight = 10 }
+
+dillo2 :: Dillo
+dillo2 = MkDillo Alive 10
