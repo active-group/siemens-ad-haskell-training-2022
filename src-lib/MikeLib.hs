@@ -174,7 +174,7 @@ parrot2 = MkParrot "Goodbye!" 2
 
 -- Snake, 10cm thick, 200cm long
 snake1 :: Animal
-snake1 = MkSnake 10 200
+snake1 = MkSnake (Thickness 10) (Length 200)
 
 -- run over a animal
 runOverAnimal :: Animal -> Animal
