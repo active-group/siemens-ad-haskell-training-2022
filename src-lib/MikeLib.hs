@@ -508,3 +508,11 @@ extract p (first : rest) =
     else extract p rest
 
 -- usually provided as filter
+
+
+-- find the index of an element in a list
+listIndex :: a -> [a] -> Integer
+-- >>> listIndex 8 [5, 7, 8, 2, 9]
+-- 2
+listIndex x [] = undefined
+listIndex x (first:rest) = undefined
