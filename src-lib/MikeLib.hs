@@ -556,4 +556,4 @@ listIndex x (first:rest) =
         Result index -> Result (index+1)
 
 -- built-in type classes:
--- Show, Eq, 
+-- Show, Eq, Ord (ordered), Num
