@@ -36,6 +36,9 @@ isCute :: Pet -> Bool
 -- True
 -- >>> isCute Spider
 -- False
+
+-- input has several cases =>
+-- template has one equation per case
 isCute Cat = True
 isCute Dog = True
 isCute Spider = False
@@ -80,6 +83,16 @@ timeMinutesSinceMidnight :: Time -> Integer
 -- >>> timeMinutesSinceMidnight time1
 -- 670
 timeMinutesSinceMidnight time =
--- template: derivies from the type signature / datatype definitions
+-- template: derived from the type signature / datatype definitions
+-- in this case: compound data as input
+-- template: calls to the selectors
 --    timeHours time      timeMinutes time
   (timeHours time) * 60 + (timeMinutes time)
+
+-- make time object from minutes since midnight
+msmToTime :: Integer -> Time
+msmToTime minutes =
+    -- template: compound data / record as output
+    -- call the constructor
+--    MkTime { timeHours = undefined, timeMinutes = undefined }
+    MkTime {timeHours = undefined, timeMinutes = undefined}
