@@ -413,6 +413,7 @@ listMap _f [] = []
 listMap f (first : rest) =
   (f first) : (listMap f rest)
 
+-- built-in map
 
 -- is a number even?
 isEven :: Integer -> Bool
