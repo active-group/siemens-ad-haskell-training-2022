@@ -307,8 +307,8 @@ data Product =
 
 -- propertion of soap in shower product (100% = 1)
 soapProportion :: Product -> Double
-soapProportion (Soap color) = undefined
-soapProportion (Shampoo hairType) = undefined
+soapProportion (Soap _color) = undefined
+soapProportion (Shampoo _hairType) = undefined
 soapProportion (Mixture product1 product2) =
     (soapProportion product1) * 0.5
     + (soapProportion product2) * 0.5
