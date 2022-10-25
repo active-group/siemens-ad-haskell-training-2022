@@ -387,3 +387,11 @@ runOverAnimals :: [Animal] -> [Animal]
 runOverAnimals [] = []
 runOverAnimals (first:rest) =
     (runOverAnimal first) : (runOverAnimals rest)
+
+-- is a number even?
+isEven :: Integer -> Bool
+-- >>> isEven 4
+-- True
+-- >>> isEven 5
+-- False
+isEven n = mod n 2 == 0
