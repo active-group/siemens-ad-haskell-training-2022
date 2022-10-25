@@ -395,3 +395,9 @@ isEven :: Integer -> Bool
 -- >>> isEven 5
 -- False
 isEven n = mod n 2 == 0
+
+-- Exercise: write a function that extracts all even elements
+-- from a list of integers
+extractEvens :: [Integer] -> [Integer]
+-- >>> extractEvens [1,2,3,4,5,6,7]
+-- [2,4,6]
