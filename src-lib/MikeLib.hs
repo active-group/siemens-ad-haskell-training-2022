@@ -405,8 +405,17 @@ isEven :: Integer -> Bool
 -- False
 isEven n = mod n 2 == 0
 
+isOdd :: Integer -> Bool
+isOdd n = mod n 2 == 1
+
 -- Exercise: write a function that extracts all even elements
 -- from a list of integers
-extractEvens :: [Integer] -> [Integer]
--- >>> extractEvens [1,2,3,4,5,6,7]
--- [2,4,6]
+extractOdds :: [Integer] -> [Integer]
+-- >>> extractOdds [1,2,3,4,5,6,7]
+-- [1,3,5, 7]
+extractOdds [] = undefined
+extractOdds (first:rest) =
+    if isOdd first
+    then first : (extractOdds rest)
+    else extractOdds rest
+
