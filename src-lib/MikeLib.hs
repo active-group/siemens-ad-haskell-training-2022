@@ -262,3 +262,7 @@ prim = Creek "Dreifaltigkeitsberg"
 neckar1 :: River
 neckar1 = Confluence "Rottweil" eschach prim
 
+schlichem :: River
+schlichem = Creek "Tieringen"
+
+neckar2 = Confluence ""
