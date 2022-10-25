@@ -181,11 +181,10 @@ runOverAnimal (MkParrot _ weight) = MkParrot "" weight
 -- MkDillo {dilloLiveness = Dead, dilloWeight = 8}
 
 -- Haskell: function always has one input, one output
-feedAnimal :: (Weight -> Animal)
+feedAnimal :: Animal -> (Weight -> Animal)
 feedAnimal (MkDillo liveness weight) amount =
     case liveness of
         Alive -> MkDillo liveness (weight + amount)
         Dead -> MkDillo liveness weight
 feedAnimal (MkParrot sentence weight) amount =
     MkParrot sentence (weight + amount)
-Animal -> 
