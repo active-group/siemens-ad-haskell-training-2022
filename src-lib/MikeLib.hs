@@ -68,7 +68,7 @@ dillo2 :: Dillo
 dillo2 = MkDillo Dead 8
 
 -- Wallclock time:
-data Time = MkTime { timeHours :: Integer, timeMinute :: Integer }
+data Time = MkTime { timeHours :: Integer, timeMinutes :: Integer }
   deriving Show
 
 time1 :: Time
@@ -78,4 +78,6 @@ time1 = MkTime 11 10
 -- How many minutes since midnight?
 timeMinutesSinceMidnight :: Time -> Integer
 timeMinutesSinceMidnight time =
-    timeHours time      timeM
+-- template: derivies from the type signature / datatype definitions
+--    timeHours time      timeMinutes time
+  (timeHours time) * 60 + (timeMinutes times)
