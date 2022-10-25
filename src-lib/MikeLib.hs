@@ -232,3 +232,4 @@ feedAnimal' (MkSnake (Thickness t) length, amount) =
 t1 :: (Bool, Pet, Animal)
 t1 = (True, Spider, dillo1)
 
+-- use it for functions that have multiple return values
