@@ -331,3 +331,9 @@ list2 = Cons 2 (Cons 5 Empty)
 list3 = Cons 4 (Cons 2 (Cons 5 Empty))
 -- 4-element list: 7 4 2 5
 list4 = Cons 7 list3
+
+-- add the elements of a list
+listSum :: ListOfIntegers -> Integer
+listSum Empty = 0
+listSum (Cons first rest) =
+    first + listSum rest
