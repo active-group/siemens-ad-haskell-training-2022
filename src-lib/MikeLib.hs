@@ -529,7 +529,7 @@ class Eq a where -- "interface"
 -- Eq specifically "type class", think "interface"
 
 -- find the index of an element in a list
-listIndex :: Eq a => a -> [a] -> Optional Integer
+listIndex :: a -> [a] -> Optional Integer
 -- >>> listIndex 8 [5, 7, 8, 2, 9]
 -- Result 2
 listIndex _x [] = Null
