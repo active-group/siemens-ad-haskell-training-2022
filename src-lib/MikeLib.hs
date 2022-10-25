@@ -56,6 +56,8 @@ type Weight = Integer
 data Dillo = MkDillo { dilloLiveness :: Liveness, dilloWeight :: Weight }
   deriving Show
 
+-- each case always needs a constructor!
+
 -- dilloLiveness: selector function
 
 -- live armadillo, 10kg
@@ -66,4 +68,9 @@ dillo2 :: Dillo
 dillo2 = MkDillo Dead 8
 
 -- Wallclock time:
-data Time = MkTime
+data Time = MkTime { timeHours :: Integer, timeMinute :: Integer }
+  deriving Show
+
+time1 :: Time
+-- 11:10AM
+time1 = MkTime 11 10
