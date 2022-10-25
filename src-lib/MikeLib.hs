@@ -555,6 +555,10 @@ listIndex x (first:rest) =
         Null -> Null
         Result index -> Result (index+1)
 
+optionalMap :: (a -> b) -> Optional a -> Optional b
+optionalMap f Null = Null
+optionalMap f (Result a) = Result (f a)
+
 -- built-in type classes:
 -- Show, Eq, Ord (ordered), Num
 
