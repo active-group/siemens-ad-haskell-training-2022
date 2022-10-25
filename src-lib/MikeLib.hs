@@ -228,3 +228,4 @@ feedAnimal' (MkParrot sentence weight, amount) =
 feedAnimal' (MkSnake (Thickness t) length, amount) =
     MkSnake (Thickness (t + div amount 2)) length
 
+-- (True, Spider, dillo1) : 3-tuple of type 
