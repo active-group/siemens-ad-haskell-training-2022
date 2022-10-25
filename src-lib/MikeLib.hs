@@ -253,4 +253,7 @@ data River =
   | Confluence Place River River
   deriving Show
 
-eschach = Creek 
+eschach :: River
+eschach = Creek "Heimliswald"
+
+prim = Creek "Dreifaltigkeitsberg"
