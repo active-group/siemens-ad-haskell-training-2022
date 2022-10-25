@@ -136,5 +136,13 @@ msmToTime minutes =
 -- An animal is the one the following:
 -- - armadillo - OR -
 -- - parrot
+
+-- A parrot has the following properties:
+-- - sentence
+-- - weight
+
 data Animal =
-    Dillo { dilloLiveness :: Liveness, dilloWeight :: Weight}
+    MkDillo { dilloLiveness :: Liveness, dilloWeight :: Weight}
+  | MkParrot String Weight
+  deriving Show
+
