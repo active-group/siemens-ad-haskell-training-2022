@@ -283,3 +283,8 @@ flowsFrom place (Confluence location mainStem tributary) =
      -- template: for each self-reference put in a recursive call
      || (flowsFrom place mainStem)
      || (flowsFrom place tributary)
+
+-- A shower product is one the following:
+-- - soap (color)
+-- - shampoo (hair type)
+-- - mixture of two shower product
