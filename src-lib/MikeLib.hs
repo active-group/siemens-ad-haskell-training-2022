@@ -22,7 +22,40 @@ f n = n * 2
 -- - spider
 
 -- new data type
+-- 3 cases
 data Pet = Cat | Dog | Spider
   deriving Show -- indentation-sensitive!
 
+-- intuition: capitalized words are for "constants"
+-- lower case: variables
 
+-- is a pet cute?
+isCute :: Pet -> Bool
+-- one equation per case
+-- >>> isCute Cat
+-- True
+-- >>> isCute Spider
+-- False
+isCute Cat = True
+isCute Dog = True
+isCute Spider = False
+
+-- Animals on the Texas highway
+
+-- Armadillo has the following properties:
+-- - alive - OR - dead? - AND -
+-- - weight
+
+data Liveness = Alive | Dead
+  deriving Show
+
+-- type synonym
+type Weight = Integer
+
+-- record type
+data Dillo = MkDillo { dilloLiveness :: Liveness, dilloWeight :: Weight }
+  deriving Show
+
+-- live armadillo, 10kg
+dillo1 :: Dillo
+dillo1 = MkDillo { dilloLiveness = Alive, dilloWeight = 10 }
