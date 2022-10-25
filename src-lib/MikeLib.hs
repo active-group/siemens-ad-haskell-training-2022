@@ -509,10 +509,23 @@ extract p (first : rest) =
 
 -- usually provided as filter
 
+-- listIndex can produce a result - or not!
+data Optional a =
+    Null
+  | Result a
+
+-- Eq a: constraint on a
+-- not any a, but one that supports comparison
 
 -- find the index of an element in a list
-listIndex :: a -> [a] -> Integer
+listIndex :: Eq a => a -> [a] -> Optional Integer
 -- >>> listIndex 8 [5, 7, 8, 2, 9]
 -- 2
-listIndex x [] = undefined
-listIndex x (first:rest) = undefined
+listIndex _x [] = Null
+listIndex x (first:rest) =
+    if first == x 
+    then Result 0
+    else
+       case listIndex x rest of
+        Null -> Null
+        Result index -> Result (index+1)
