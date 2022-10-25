@@ -45,9 +45,11 @@ isCute Spider = False
 
 -- Animals on the Texas highway
 
--- An animal:
--- - armadillo
+-- An animal is the one the following:
+-- - armadillo - OR -
 -- - parrot
+
+-- Haskell: all cases have to be part of the same data definition
 
 -- Armadillo has the following properties:
 -- - alive - OR - dead? - AND -
@@ -59,6 +61,7 @@ data Liveness = Alive | Dead
 -- type synonym
 type Weight = Integer
 
+{-
 -- record type
 data Dillo = MkDillo { dilloLiveness :: Liveness, dilloWeight :: Weight }
   deriving Show
@@ -99,6 +102,7 @@ runOverDillo dillo =
 -- runOverDillo (MkDillo _liveness w) = MkDillo Dead w
 -- functional update, make a copy with some attributes different
 runOverDillo dillo = dillo { dilloLiveness = Dead }
+-}
 
 -- Wallclock time:
 data Time = MkTime { timeHours :: Integer, timeMinutes :: Integer }
@@ -128,3 +132,9 @@ msmToTime minutes =
     -- call the constructor
 --    MkTime { timeHours = undefined, timeMinutes = undefined }
     MkTime {timeHours = div minutes 60, timeMinutes = mod minutes 60 }
+
+-- An animal is the one the following:
+-- - armadillo - OR -
+-- - parrot
+data Animal =
+    Dillo { dilloLiveness :: Liveness, dilloWeight :: Weight}
