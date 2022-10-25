@@ -517,6 +517,14 @@ data Optional a =
 
 -- Eq a: constraint on a, before =>
 -- not any a, but one that supports comparison
+{-
+class Eq a where -- "interface"
+  -- method of Eq
+  (==) :: a -> a -> Bool
+
+-}
+
+-- implementation of a type class: instance
 
 -- Eq specifically "type class", think "interface"
 
