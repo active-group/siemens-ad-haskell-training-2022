@@ -271,10 +271,15 @@ neckar2 = Confluence "Epfendorf" neckar1 schlichem
 
 -- Does water flow from a place into a river?
 flowsFrom :: Place -> River -> Bool
+-- >>> flowsFrom "Tieringen" neckar2
+-- True
+
+-- >>> flowsFrom "Tieringen" prim
+-- False
+
 flowsFrom place (Creek origin) = place == origin
 flowsFrom place (Confluence location mainStem tributary) =
      (place == location)
      -- template: for each self-reference put in a recursive call
      || (flowsFrom place mainStem)
      || (flowsFrom place tributary)
-     
