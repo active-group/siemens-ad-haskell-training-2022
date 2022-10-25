@@ -192,3 +192,5 @@ feedAnimal (MkParrot sentence weight) amount =
 
 -- Exercise:
 -- add another sort of animal: snakes, defined by thickness and length
+-- also extend runOverAnimal, feedAnimal
+-- examples for snakes and calling runOverAnimal, feedAnimal
