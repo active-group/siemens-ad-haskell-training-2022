@@ -522,6 +522,8 @@ class Eq a where -- "interface"
   -- method of Eq
   (==) :: a -> a -> Bool
 
+instance Eq Integer where
+    (==) = ...
 -}
 
 -- implementation of a type class: instance
@@ -529,9 +531,11 @@ class Eq a where -- "interface"
 -- Eq specifically "type class", think "interface"
 
 -- find the index of an element in a list
-listIndex :: a -> [a] -> Optional Integer
+listIndex :: Eq a => a -> [a] -> Optional Integer
 -- >>> listIndex 8 [5, 7, 8, 2, 9]
 -- Result 2
+-- >>> listIndex Cat [Dog, Cat, Spider]
+-- No instance for (Eq Pet) arising from a use of ‘listIndex’
 listIndex _x [] = Null
 listIndex x (first:rest) =
     if first == x 
