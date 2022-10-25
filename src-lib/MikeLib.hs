@@ -145,9 +145,12 @@ msmToTime minutes =
 -- - multiple cases
 -- - each case is compound data / has multiple attributes
 
-data Thickness = MkThickness Integer
+-- 2 things called "Thickness":
+data Thickness = Thickness Integer
+--   ^^^^^^^^^ type / compile-time
+--               ^^^^^^^^^ constructor
   deriving Show
-data Length = MkLength Integer
+data Length = Length Integer
   deriving Show
 
 data Animal =
