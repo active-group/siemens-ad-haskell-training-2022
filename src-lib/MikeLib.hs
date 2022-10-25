@@ -285,11 +285,32 @@ flowsFrom place (Confluence location mainStem tributary) =
      || (flowsFrom place tributary)
 
 -- A shower product is one the following:
--- - soap (color)
--- - shampoo (hair type)
+-- - soap (color) - OR -
+-- - shampoo (hair type) - OR -
 -- - 50/50 mixture of two shower products
 --                        ^^^^^^^^^^^^^^ 2 self references
 
 -- - write a data type for shower products
 -- - write a function that calculates the proportion of soap
+
+data Color = Blue | Blonde | Red
+  deriving Show
+
+data Hairtype = Normal | Dandruff | Fine | Oily
+  deriving Show
+
+data Product =
+    Soap Color
+  | Shampoo Hairtype
+  | Mixture Product Product
+  deriving Show
+
+-- propertion of soap in shower product (100% = 1)
+soapProportion :: Product -> Double
+soapProportion (Soap color) = undefined
+soapProportion (Shampoo hairType) = undefined
+soapProportion (Mixture product1 product2) =
+    (soapProportion product1) * 0.5
+    + (soapProportion product2) * 0.5
+
 
