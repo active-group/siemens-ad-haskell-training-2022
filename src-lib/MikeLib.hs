@@ -371,3 +371,19 @@ list3 = [4, 2, 5]
 list4 :: [Integer]
 list4 = 7 : list3
 
+listSum :: [Integer] -> Integer
+-- >>> listSum list4
+-- 18
+listSum [] = 0
+-- in Haskell: head / tail
+listSum (first:rest) =
+    first + listSum rest
+
+highway :: [Animal]
+highway = [dillo1, dillo2, parrot1, parrot2, snake1]
+
+-- run over all animals in a list
+runOverAnimals :: [Animal] -> [Animal]
+runOverAnimals [] = []
+runOverAnimals (first:rest) =
+    (runOverAnimal first) : (runOverAnimals rest)
