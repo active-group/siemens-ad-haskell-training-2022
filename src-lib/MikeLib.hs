@@ -550,7 +550,7 @@ listIndex _x [] = Null
 listIndex x (first:rest) =
     if first == x 
     then Result 0
-    else optionalMap inc (listIndex x rest)
+    else fmap inc (listIndex x rest)
 {-
        case listIndex x rest of
         Null -> Null
