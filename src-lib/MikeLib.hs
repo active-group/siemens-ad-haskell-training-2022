@@ -288,6 +288,7 @@ flowsFrom place (Confluence location mainStem tributary) =
 -- - soap (color)
 -- - shampoo (hair type)
 -- - 50/50 mixture of two shower products
+--                        ^^^^^^^^^^^^^^ 2 self references
 
 -- - write a data type for shower products
 -- - write a function that calculates the proportion of soap
