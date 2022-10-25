@@ -233,3 +233,23 @@ t1 :: (Bool, Pet, Animal)
 t1 = (True, Spider, dillo1)
 
 -- use it for functions that have multiple return values
+
+-- A river is one of the following:
+-- - a creek, originates at a spring at a certain place
+-- - a confluence, flows together from two rivers at a certain place
+
+-- A creek has the following properties:
+-- - origin
+
+-- A confluence has the following properties:
+-- - place
+-- - main stem <--- river
+-- - tributary <--- river
+
+type Place = String
+
+data River =
+    Creek Place
+  | Confluence Place River River
+  deriving Show
+
