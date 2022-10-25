@@ -219,6 +219,13 @@ feedAnimal (MkParrot sentence weight) amount =
 feedAnimal (MkSnake (Thickness t) length) amount =
     MkSnake (Thickness (t + div amount 2)) length
 
+-- feedAnimal would be more convenient if the parameters were the other way around.
+
+swap :: (a -> b -> c) -> (b -> (a -> c))
+-- f :: (a -> b -> c)
+-- have to return (b -> a -> c)
+swap f =
+  \ b -> \ a -> f a b
 
 -- Exercise:
 -- add another sort of animal: snakes, defined by thickness and length
