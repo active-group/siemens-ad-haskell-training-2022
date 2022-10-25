@@ -397,6 +397,14 @@ runOverAnimals [] = []
 runOverAnimals (first:rest) =
     (runOverAnimal first) : (runOverAnimals rest)
 
+-- increment all numbers in a list
+incList :: [Integer] -> [Integer]
+-- >>> incList [1,2,3,4,5]
+-- [2,3,4,5,6]
+incList [] = []
+incList (first:rest) =
+    (first + 1) : (incList rest)
+
 -- is a number even?
 isEven :: Integer -> Bool
 -- >>> isEven 4
