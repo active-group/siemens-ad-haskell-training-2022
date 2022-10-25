@@ -148,7 +148,7 @@ msmToTime minutes =
 -- 2 things called "Thickness":
 data Thickness = Thickness Integer
 --   ^^^^^^^^^ type / compile-time
---               ^^^^^^^^^ constructor
+--               ^^^^^^^^^ constructor / run-time
   deriving Show
 data Length = Length Integer
   deriving Show
@@ -190,7 +190,7 @@ runOverAnimal :: Animal -> Animal
 runOverAnimal (MkDillo _ weight) = MkDillo Dead weight
 runOverAnimal (MkParrot _ weight) = MkParrot "" weight
 runOverAnimal (MkSnake _thickness length) =
-    MkSnake length 0
+    MkSnake (Thickness 0) length
 
 -- feed animal
 -- >>> (feedAnimal dillo1) 5
