@@ -116,7 +116,7 @@ runOverDillo dillo = dillo { dilloLiveness = Dead }
 
 -- Wallclock time:
 data Time = MkTime { timeHours :: Integer, timeMinutes :: Integer }
-  deriving Show
+  deriving (Show, Eq)
 
 time1 :: Time
 -- 11:10AM
@@ -157,17 +157,17 @@ msmToTime minutes =
 
 -- 2 things called "Thickness":
 data Thickness = Thickness Integer
+  deriving (Show, Eq)
 --   ^^^^^^^^^ type / compile-time
 --               ^^^^^^^^^ constructor / run-time
-  deriving Show
 data Length = Length Integer
-  deriving Show
+  deriving (Show, Eq)
 
 data Animal =
     MkDillo { dilloLiveness :: Liveness, dilloWeight :: Weight}
   | MkParrot String Weight
   | MkSnake Thickness Length -- no Weight attribute!
-  deriving Show
+  deriving (Show, Eq)
 
 
 dillo1 :: Animal
