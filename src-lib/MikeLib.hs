@@ -273,4 +273,8 @@ neckar2 = Confluence "Epfendorf" neckar1 schlichem
 flowsFrom :: Place -> River -> Bool
 flowsFrom place (Creek origin) = place == origin
 flowsFrom place (Confluence location mainStem tributary) =
-     place == location
+     (place == location)
+     -- template: for each self-reference put in a recursive call
+     || (flowsFrom place mainStem)
+     || (flowsFrom place tributary)
+     
