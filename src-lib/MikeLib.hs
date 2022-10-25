@@ -393,6 +393,13 @@ listProduct [] = 1
 listProduct (first:rest) =
     first * listProduct rest
 
+-- "right fold": right-to-left
+-- "universal list function"
+listFold :: b -> (a -> b -> b) -> [a] -> b
+listFold e _op [] = e
+listFold e op (first:rest) =
+    op first (listFold e op rest)
+
 highway :: [Animal]
 highway = [dillo1, dillo2, parrot1, parrot2, snake1]
 
