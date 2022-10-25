@@ -388,6 +388,11 @@ listSum [] = 0
 listSum (first:rest) =
     first + listSum rest
 
+listProduct :: [Integer] -> Integer
+listProduct [] = 1
+listProduct (first:rest) =
+    first * listProduct rest
+
 highway :: [Animal]
 highway = [dillo1, dillo2, parrot1, parrot2, snake1]
 
