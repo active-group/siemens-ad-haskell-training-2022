@@ -9,7 +9,7 @@ import qualified Database.SQLite.Simple as Sqlite
 import Polysemy (Embed, Member, Sem, embed)
 import Polysemy.Internal (send)
 import qualified Polysemy
-
+import Data.Maybe (fromJust)
 
 {-
 program:
@@ -217,14 +217,24 @@ g = do
 makeJohannesYounger :: 
     Member Store effects => 
     Integer -> 
-    Sem effects (Maybe Integer)
+    Sem effects Integer
 makeJohannesYounger years = do
-    x <- lookupKey "Johannes"
+    let name = "Johannes"
+    x <- lookupKey name
     case x of
-        Nothing -> insertValue "Johannes" 33
-        Just age -> insertValue "Johannes" (age - years)
-    x <- lookupKey "Johannes"
-    return x
+        Nothing -> insertValue name 33
+        Just age -> insertValue name (age - years)
+    -- (1)
+    x <- lookupKey name
+    -- return (fromJust x)
+    -- (2)
+    -- Just x <- lookupKey name
+    -- return x
+    let Just x' = x
+    return x'
+
+-- fromJust Nothing = error "the impossible happened"
+-- fromJust (Just a) = a
 
 replaceValue :: Sqlite.Connection -> Key -> Value -> IO ()
 replaceValue conn key value =
@@ -265,3 +275,5 @@ main dbfile = do
       & Polysemy.runM -- take out Embed IO by "running" all the code in actual IO
   Sqlite.close conn
   print result
+
+-- IO monad in Haskell
