@@ -242,11 +242,12 @@ program dbfile = do
         & Polysemy.runM
     Sqlite.close conn
     print result
-
   where
     p :: Member Store r => Sem r (Maybe Integer)
     p = do
         insertValue "Bianca" 42
         x <- lookupKey "Bianca"
-        return (x + 1)
+        case x of
+            Nothing -> return Nothing
+            Just val -> return (Just (val + 1))
       
