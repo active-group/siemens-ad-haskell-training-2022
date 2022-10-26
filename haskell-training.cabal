@@ -15,6 +15,7 @@ library
     exposed-modules:  MyLib
     build-depends:    base
                     , QuickCheck
+                    , aeson
                     , containers
                     , generic-lens
                     , lens
