@@ -24,6 +24,8 @@ newtype Key = Key {unKey :: String}
   deriving stock (Ord)
   deriving (Sqlite.FromField, Sqlite.ToField) via String
   deriving (Servant.FromHttpApiData) via String
+  -- we need a ToJSON instance to return Key(s) as JSON
+  deriving (Aeson.ToJSON) via String
 
 newtype Value = Value {unValue :: Int}
   deriving stock (Eq, Show)
@@ -36,6 +38,7 @@ data LookupError = NotFound
 data Store m a where
     InsertValue :: Key -> Value -> Store m ()
     LookupKey :: Key -> Store m (Maybe Value)
+    GetAllKeys :: Store m [Key]
 
 {- the following functions are pure boilerplate code
    and could be generated with template haskell
@@ -52,6 +55,9 @@ insertValue key value = send (InsertValue key value)
 
 lookupKey :: Member Store r => Key -> Sem r (Maybe Value)
 lookupKey key = send (LookupKey key)
+
+getAllKeys :: Member Store r => Sem r [Key]
+getAllKeys = send GetAllKeys
 
 -- making it more convenient to lookup keys (that might not exist)
 lookupKeyOrError ::
@@ -84,6 +90,10 @@ selectKey conn key = do
       (Sqlite.Only result) : _ -> pure $ Just result
       [] -> pure Nothing
 
+selectAllKeys :: Sqlite.Connection -> IO [Key]
+selectAllKeys conn =
+    fmap Sqlite.fromOnly <$> Sqlite.query_ conn "select key from test"
+
 runStoreAsSqlite ::
   Member (Embed IO) r =>
   Sqlite.Connection ->
@@ -93,6 +103,7 @@ runStoreAsSqlite conn =
     Polysemy.interpret $ \case
         InsertValue key value -> embed $ replaceValue conn key value
         LookupKey key -> embed $ selectKey conn key
+        GetAllKeys -> embed $ selectAllKeys conn
 
 createDbTable :: Sqlite.Connection -> IO ()
 createDbTable conn =
@@ -117,6 +128,9 @@ type Routes =
   -- PUT /:key/:value/ ---> InsertValue
   -- response: HTTP No Content (204)
   :<|> Capture "key" Key :> Capture "value" Value :> PutNoContent
+  -- GET /
+  -- response: JSON encoded [Key]
+  :<|> Get '[JSON] [Key]
 
 {- Some combinators Servant defines:
 
@@ -186,6 +200,7 @@ server =
   -- here our handler functions are bound to different parts of the API
   lookupKeyOrError  -- sometime you can use some effect based computation directly
   :<|> putNoContent -- sometimes you need to tweak it a bit to return the expected type
+  :<|> getAllKeys
   -- Note: the structure of the server exactly matches the API definition
   --       You even use the same combinators
 
