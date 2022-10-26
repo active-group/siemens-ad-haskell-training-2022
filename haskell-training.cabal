@@ -13,6 +13,7 @@ common warnings
 library
     import:           warnings
     exposed-modules:  MyLib
+                    , StoreServer
     build-depends:    base
                     , QuickCheck
                     , aeson
@@ -24,6 +25,11 @@ library
                     , polysemy-plugin
                     , text
                     , sqlite-simple
+                    , aeson
+                    , mtl
+                    , servant
+                    , servant-server
+                    , warp
     hs-source-dirs:   src-lib
     default-language: Haskell2010
 
