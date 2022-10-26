@@ -16,6 +16,9 @@ library
     build-depends:    base
                     , QuickCheck
                     , containers
+                    , generic-lens
+                    , lens
+                    , lens
                     , polysemy
                     , polysemy-plugin
                     , text

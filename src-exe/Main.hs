@@ -1,8 +1,7 @@
 module Main where
 
-import qualified MyLib (someFunc)
-
 main :: IO ()
 main = do
-  putStrLn "Hello, Haskell!"
-  MyLib.someFunc
+  let ioActions = [putStrLn "first", putStrLn "second", putStrLn "third"]
+      first = head ioActions
+  first

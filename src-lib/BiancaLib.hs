@@ -189,6 +189,16 @@ f'' = do
 
 {- organizing monadic code using Polysemy -}
 
+-- data Animal
+-- -- >>> :t Armadillo
+--     = Armadillo Integer -- Armadillo :: Integer -> Animal
+--     | Cat String -- Cat :: String -> Animal
+
+-- data Animal where
+--     Armadillo :: Integer -> Animal
+--     Cat :: String -> Animal
+--     -- GADTSyntax
+
 data Store m a where
     InsertValue :: Key -> Value -> Store m ()
     LookupKey :: Key -> Store m (Maybe Value)
@@ -204,6 +214,18 @@ g = do
     x <- lookupKey "Johannes"
     return x
 
+makeJohannesYounger :: 
+    Member Store effects => 
+    Integer -> 
+    Sem effects (Maybe Integer)
+makeJohannesYounger years = do
+    x <- lookupKey "Johannes"
+    case x of
+        Nothing -> insertValue "Johannes" 33
+        Just age -> insertValue "Johannes" (age - years)
+    x <- lookupKey "Johannes"
+    return x
+
 replaceValue :: Sqlite.Connection -> Key -> Value -> IO ()
 replaceValue conn key value =
     Sqlite.execute conn "replace into test (key, value) values (?,?)" (key, value)
@@ -216,41 +238,30 @@ selectKey conn key = do
       [] -> pure Nothing
 
 runStoreAsSqlite ::
-  Member (Embed IO) r =>
+  -- I need access to the real world (IO) in order to run this function
+  Member (Embed IO) effects =>
   Sqlite.Connection ->
-  Sem (Store ': r) a -> Sem r a
+  Sem (Store ': effects) a ->
+  Sem effects a
 runStoreAsSqlite conn =
-    Polysemy.interpret (\ program ->
-        case program of
+    Polysemy.interpret (\ program' ->
+        case program' of
             InsertValue key value -> embed (replaceValue conn key value)
             LookupKey key -> embed (selectKey conn key)
     )
-
 
 createDbTable :: Sqlite.Connection -> IO ()
 createDbTable conn =
   let statement = "create table if not exists test (key text primary key not null, value integer)"
    in Sqlite.execute_ conn statement
 
-
-program :: String -> IO ()
-program dbfile = do
+main :: String -> IO ()
+main dbfile = do
   conn <- Sqlite.open dbfile
   createDbTable conn
-  result <-
-    p
-      & runStoreAsSqlite conn
-      & Polysemy.runM
+  result <- 
+    makeJohannesYounger 3 -- effects: '[Store, Embed IO]
+      & runStoreAsSqlite conn -- take out the Store effect: effects == '[Embed IO]
+      & Polysemy.runM -- take out Embed IO by "running" all the code in actual IO
   Sqlite.close conn
   print result
-  where
-    p :: Member Store r => Sem r (Maybe Integer)
-    p = do
-      insertValue "Bianca" 42
-      insertValue "Johannes" 16
-      maybeX <- lookupKey "Johannes"
-      maybeY <- lookupKey "Bianca"
-      case (maybeX, maybeY) of
-        (Just x, Just y) -> return (Just (x + y))
-        (x, Nothing) -> return x
-        (Nothing, y) -> return y
