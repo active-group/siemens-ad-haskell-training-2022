@@ -1,6 +1,15 @@
 {-# OPTIONS_GHC -fno-warn-missing-signatures #-}
+{-# LANGUAGE GADTs, FlexibleContexts, PolyKinds, TypeOperators, DataKinds #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module BiancaLib where
+
+import Data.Function ((&))
+import qualified Database.SQLite.Simple as Sqlite
+import Polysemy (Embed, Member, Sem, embed)
+import Polysemy.Internal (send)
+import qualified Polysemy
+
 
 {-
 program:
@@ -177,3 +186,67 @@ f'' = do
     x <- get' "johannes"
     _ <- something
     return (x + 2)
+
+{- organizing monadic code using Polysemy -}
+
+data Store m a where
+    InsertValue :: Key -> Value -> Store m ()
+    LookupKey :: Key -> Store m (Maybe Value)
+
+insertValue :: Member Store r => Key -> Value -> Sem r ()
+insertValue key value = send (InsertValue key value)
+
+lookupKey :: Member Store r => Key -> Sem r (Maybe Value)
+lookupKey key = send (LookupKey key)
+
+g :: Member Store r => Sem r (Maybe Value)
+g = do
+    x <- lookupKey "Johannes"
+    return x
+
+replaceValue :: Sqlite.Connection -> Key -> Value -> IO ()
+replaceValue conn key value =
+    Sqlite.execute conn "replace into test (key, value) values (?,?)" (key, value)
+
+selectKey :: Sqlite.Connection -> Key -> IO (Maybe Value)
+selectKey conn key = do
+    res <- Sqlite.query conn "select value from test where key = ?" (Sqlite.Only key)
+    case res of
+      (Sqlite.Only result) : _ -> pure $ Just result
+      [] -> pure Nothing
+
+runStoreAsSqlite ::
+  Member (Embed IO) r =>
+  Sqlite.Connection ->
+  Sem (Store ': r) a -> Sem r a
+runStoreAsSqlite conn =
+    Polysemy.interpret (\ program ->
+        case program of
+            InsertValue key value -> embed (replaceValue conn key value)
+            LookupKey key -> embed (selectKey conn key)
+    )
+
+
+createDbTable :: Sqlite.Connection -> IO ()
+createDbTable conn =
+  let statement = "create table if not exists test (key text primary key not null, value integer)"
+   in Sqlite.execute_ conn statement
+
+
+program :: String -> IO ()
+program dbfile = do
+    conn <- Sqlite.open dbfile
+    createDbTable conn
+    result <- p
+        & runStoreAsSqlite conn
+        & runM
+    Sqlite.close conn
+    print result
+    
+  where
+    p :: Member Store r => Sem r (Maybe Integer)
+    p = do
+        insertValue "Bianca" 42
+        x <- lookupKey "Bianca"
+        return (x + 1)
+      
