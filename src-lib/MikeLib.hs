@@ -607,7 +607,7 @@ algebra:
 
 -- a type with just an operation
 class Semigroup' a where
-  op :: a -> (a -> a)
+  op :: a -> a -> a
 
 -- String: instance Semigroup String where
 --            op s1 s2 = s1 ++ s2
@@ -625,8 +625,21 @@ class Semigroup' a => Monoid' a where
 -- so: instance Monoid String where
 --       neutral = ""
 
-instance Semigroup' (Optional a) where
-  op = undefined
+instance Semigroup' a => Semigroup' (Optional a) where
+  op Null Null = Null
+  op (Result a) Null = Result a
+  op Null (Result a) = Result a
+  op (Result a) (Result b) = Result (op a b)
 
-instance Monoid' (Optional a) where
-  --
+instance Semigroup' a => Monoid' (Optional a) where
+  neutral = Null
+
+-- op a (op b (op c (op d e)))
+
+-- associativity:
+-- op a (op b c) == op (op a b) c
+-- a `op` (b `op` c) == (a `op` b) `op` c
+
+-- a `op` b `op` c `op` d `op` e `op` f
+
+-- intuition: Optional makes semigroups into monoids
