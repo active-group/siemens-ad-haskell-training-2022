@@ -235,19 +235,22 @@ createDbTable conn =
 
 program :: String -> IO ()
 program dbfile = do
-    conn <- Sqlite.open dbfile
-    createDbTable conn
-    result <- p
-        & runStoreAsSqlite conn
-        & Polysemy.runM
-    Sqlite.close conn
-    print result
+  conn <- Sqlite.open dbfile
+  createDbTable conn
+  result <-
+    p
+      & runStoreAsSqlite conn
+      & Polysemy.runM
+  Sqlite.close conn
+  print result
   where
     p :: Member Store r => Sem r (Maybe Integer)
     p = do
-        insertValue "Bianca" 42
-        x <- lookupKey "Bianca"
-        case x of
-            Nothing -> return Nothing
-            Just val -> return (Just (val + 1))
-      
+      insertValue "Bianca" 42
+      insertValue "Johannes" 16
+      maybeX <- lookupKey "Johannes"
+      maybeY <- lookupKey "Bianca"
+      case (maybeX, maybeY) of
+        (Just x, Just y) -> return (Just (x + y))
+        (x, Nothing) -> return x
+        (Nothing, y) -> return y
