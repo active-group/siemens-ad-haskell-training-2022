@@ -154,3 +154,26 @@ instance Monad TTYCommand where
     with a bind function that chains computation together, is what a monad
     defines in an abstract way.
 -}
+
+type MyMonad a = DBCommand (TTYCommand a)
+
+-- f :: String -> MyMonad Int
+-- f = do
+--     writeTTY "hi there"
+--     x <- get "Johannes"
+--     writeTTY "got johannes"
+--     return 5
+
+class Monad m => MyDB m where
+    get' :: String -> m Int
+    put' :: String -> Int -> m ()
+
+class Monad m => MyTeletype m where
+    something :: m String
+
+
+f'' :: (MyDB m, MyTeletype m) => m Int
+f'' = do
+    x <- get' "johannes"
+    _ <- something
+    return (x + 2)
