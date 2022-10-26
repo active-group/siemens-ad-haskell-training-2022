@@ -239,10 +239,10 @@ program dbfile = do
     createDbTable conn
     result <- p
         & runStoreAsSqlite conn
-        & runM
+        & Polysemy.runM
     Sqlite.close conn
     print result
-    
+
   where
     p :: Member Store r => Sem r (Maybe Integer)
     p = do
