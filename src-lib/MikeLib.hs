@@ -565,7 +565,7 @@ class Functor f where
 -}
 
 -- listMap ::  (a -> b) -> ListOf a   -> ListOf   b
-
+--             (a -> b) -> f        a -> f        b
 optionalMap :: (a -> b) -> Optional a -> Optional b
 optionalMap f Null = Null
 optionalMap f (Result a) = Result (f a)
@@ -580,7 +580,53 @@ instance Functor Optional where
 f' :: Num a => a -> a
 -- >>> f' 5.0
 -- 6.0
--- >>> f' 5
+-- >>> f' 6
 -- 6
 
 f' n = n + 1
+
+natsFrom :: Integer -> [Integer]
+natsFrom n = n : natsFrom (n + 1)
+ -- n : n+1 : n+2 : ...
+
+strikeMultiples :: Integer -> [Integer] -> [Integer]
+strikeMultiples n list = filter (\ m -> mod m n /= 0) list
+
+sieve :: [Integer] -> [Integer]
+sieve [] = []
+sieve (first:rest) = first : sieve (strikeMultiples first rest)
+
+-- data Foo = Foo { bar :: !String } -- String = [Char]
+
+{-
+algebra:
+- type T
+- operations (with type signatures)
+- laws
+-}
+
+-- a type with just an operation
+class Semigroup' a where
+  op :: a -> (a -> a)
+
+-- String: instance Semigroup String where
+--            op s1 s2 = s1 ++ s2
+
+-- a type with an operation op, and a "neutral element", such that:
+-- 
+class Semigroup' a => Monoid' a where
+  -- op :: a -> a -> a
+  neutral :: a
+  -- op neutral x == x
+  -- op x neutral == x
+
+-- "" ++ "abc" == "abc"
+-- "abc" ++ "" == "abc"
+-- so: instance Monoid String where
+--       neutral = ""
+
+instance Semigroup' (Optional a) where
+  op = undefined
+
+instance Monoid' (Optional a) where
+  --
