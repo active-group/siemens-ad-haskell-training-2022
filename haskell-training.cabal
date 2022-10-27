@@ -20,7 +20,6 @@ library
                     , containers
                     , generic-lens
                     , lens
-                    , lens
                     , polysemy
                     , polysemy-plugin
                     , text
